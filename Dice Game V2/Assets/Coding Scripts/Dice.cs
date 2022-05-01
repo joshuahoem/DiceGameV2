@@ -4,22 +4,46 @@ using UnityEngine;
 
 public class Dice : MonoBehaviour
 {
+    //Numbers
+    [SerializeField] float delayWaitTime = 2f;
+
+    //States
+    bool delayedCheck = false;
+
+    //Cache
     [SerializeField] GameObject[] diceFaces;
     GameObject diceValue;
     Rigidbody rb;
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
+        StartCoroutine(DelayCheck());
+    }
+
+    IEnumerator DelayCheck()
+    {
+        yield return new WaitForSeconds(delayWaitTime);
+        delayedCheck = true;
     }
 
     private void FixedUpdate()
     {
-        //do not check at the start - check only once then stop checking?
-        CheckDice();
+        if (!delayedCheck) {return;}
+        CheckDice(); 
+    }
+    
+    private void CheckDice()
+    {
+        
+        if (rb.velocity.magnitude <= Mathf.Epsilon) 
+        {
+            Debug.Log(CheckDiceValue());
+            delayedCheck = false;
+        }
     }
 
 
-    public GameObject CheckDiceValue()
+    public int CheckDiceValue()
     {
         var dicePos = -99999999f;
 
@@ -31,15 +55,16 @@ public class Dice : MonoBehaviour
                 diceValue = dice;
             }
         }
-        return diceValue;
+        
+        for (int i=0; i<(diceFaces.Length-1); i++)
+        {
+            if (diceValue.name == diceFaces[i].name)
+            {
+                return (i+1);
+            }
+        }
+
+        return 0;
     }
 
-    private void CheckDice()
-    {
-        
-        if (rb.velocity.y == 0 && rb.velocity.x == 0 && rb.velocity.z == 0)
-        {
-            Debug.Log(CheckDiceValue().name);
-        }
-    }
 }
