@@ -210,7 +210,7 @@ Transform:
   m_GameObject: {fileID: 8050954912640943067}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.96, z: -0.9}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 100.000015, y: 100.000015, z: 100}
   m_Children:
   - {fileID: 1649160259}
   - {fileID: 1819014820}
@@ -312,6 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03781de8983e354f81fcfcd7b793957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delayWaitTime: 2
   diceFaces:
   - {fileID: 1649160258}
   - {fileID: 1819014819}
@@ -319,3 +320,5 @@ MonoBehaviour:
   - {fileID: 1523314250}
   - {fileID: 152671402}
   - {fileID: 878468846}
+  selectedColor: {fileID: 2100000, guid: 860a0b9ce505565499ec148d6b2fdabc, type: 2}
+  unselectedColor: {fileID: 2100000, guid: 24fef6f5ec9302f42a5ab1477bdfc0e3, type: 2}

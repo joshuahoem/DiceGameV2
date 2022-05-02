@@ -9,9 +9,11 @@ public class Dice : MonoBehaviour
 
     //States
     bool delayedCheck = false;
+    public bool selected = false;
 
     //Cache
     [SerializeField] GameObject[] diceFaces;
+    [SerializeField] Material selectedColor, unselectedColor;
     GameObject diceValue;
     Rigidbody rb;
 
@@ -28,17 +30,25 @@ public class Dice : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!delayedCheck) {return;}
         CheckDice(); 
     }
     
     private void CheckDice()
     {
-        
-        if (rb.velocity.magnitude <= Mathf.Epsilon) 
+        if (rb.velocity.magnitude <= Mathf.Epsilon && delayedCheck) 
         {
             Debug.Log(CheckDiceValue());
             delayedCheck = false;
+        }
+
+        //visuals on selected dice
+        if (selected)
+        {
+            GetComponent<Renderer>().material = selectedColor;
+        }
+        else if (!selected)
+        {
+            GetComponent<Renderer>().material = unselectedColor;
         }
     }
 
@@ -65,6 +75,12 @@ public class Dice : MonoBehaviour
         }
 
         return 0;
+    }
+
+    private void OnMouseDown() 
+    {
+        //select dice
+        selected = !selected;
     }
 
 }
